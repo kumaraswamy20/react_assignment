@@ -6,7 +6,7 @@ export default class Items extends Component {
     constructor() {
         super();
         this.state = {
-            flag: 0,
+            showAddItem: 0,
             id: '',
             workItem: '',
             dueDate: '',
@@ -35,19 +35,18 @@ export default class Items extends Component {
         const items = this.state.items.concat([item]);
         this.setState({
             items,
-            flag: 0,
+            showAddItem: 0,
             workItem: '',
             dueDate: '',
             resources: ''
         });
         localStorage.setItem("items", JSON.stringify(items));
-        localStorage.setItem("workItems", items.length);
     }
 
     editItem = (event) => {
         const editItem = this.state.items.find(item => parseInt(event.target.id) === item.id);
         this.setState({
-            flag: 1,
+            showAddItem: 1,
             workItem: editItem.workItem,
             dueDate: editItem.dueDate,
             resources: editItem.resources,
@@ -67,14 +66,13 @@ export default class Items extends Component {
         )
         this.setState({
             items,
-            flag: 0,
+            showAddItem: 0,
             workItem: '',
             dueDate: '',
             resources: '',
             editId: undefined
         });
         localStorage.setItem("items", JSON.stringify(items));
-        localStorage.setItem("workItems", items.length);
     }
 
     deleteItem = (event) => {
@@ -82,16 +80,15 @@ export default class Items extends Component {
             const items = this.state.items.filter(item => parseInt(event.target.id) !== item.id);
             this.setState({ items });
             localStorage.setItem("items", JSON.stringify(items));
-            localStorage.setItem("workItems", items.length);
         }
     }
 
     handleClose = () => {
-        this.setState({ flag: 0 });
+        this.setState({ showAddItem: 0 });
     }
 
-    showPopup = () => {
-        this.setState({ flag: 1 });
+    showAddItemForm = () => {
+        this.setState({ showAddItem: 1 });
     }
 
     render() {
@@ -105,7 +102,8 @@ export default class Items extends Component {
                     </Col>
                     <Col md={3}></Col>
                     <Col md={3}>
-                        <h4>Number of Work Items: {localStorage.getItem("workItems")}</h4>
+                        {/* <h4>Number of Work Items: {localStorage.getItem("workItems")}</h4> */}
+                        <h4>Number of Work Items: {this.state.items.length}</h4>
                     </Col>
                     <Col md={2}></Col>
                 </Row>
@@ -116,7 +114,7 @@ export default class Items extends Component {
                         <button className="btn btn-success" >Upload to Google Spread Sheet</button>
                     </Col>
                     <Col md={2}>
-                        <button className="btn btn-success" onClick={this.showPopup}>Add New Item</button>
+                        <button className="btn btn-success" onClick={this.showAddItemForm}>Add New Item</button>
                     </Col>
                     <Col md={3}></Col>
                 </Row>
@@ -136,9 +134,9 @@ export default class Items extends Component {
                             </thead>
                             <tbody>
                                 {
-                                    this.state.items.map((item) => {
+                                    this.state.items.map((item, index) => {
                                         return (
-                                            <tr key>
+                                            <tr key={index}>
                                                 <td>{item.id}</td>
                                                 <td>{item.workItem}</td>
                                                 <td>{item.dueDate}</td>
@@ -163,7 +161,7 @@ export default class Items extends Component {
                     workItem={this.state.workItem}
                     dueDate={this.state.dueDate}
                     resources={this.state.resources}
-                    flag={this.state.flag}
+                    showAddItem={this.state.showAddItem}
                     changeText={this.changeText}
                     create={this.createNewItem}
                     update={this.updateItem}
