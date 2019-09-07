@@ -12,7 +12,7 @@ export default class Items extends Component {
             dueDate: '',
             resources: '',
             editId: undefined,
-            items: [{id:1,"workItem":"a","dueDate":"22-09-2019","resources":9}]
+            items: [{"id":1,"workItem":"a","dueDate":"22-09-2019","resources":"9"}]
         }
     }
     
