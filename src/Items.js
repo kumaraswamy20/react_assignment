@@ -12,7 +12,7 @@ export default class Items extends Component {
             dueDate: '',
             resources: '',
             editId: undefined,
-            items: [{"id":1,"workItem":"a","dueDate":"22-09-2019","resources":"9"}]
+            items: []
         }
     }
     
@@ -103,7 +103,7 @@ export default class Items extends Component {
                     <Col md={3}></Col>
                     <Col md={3}>
                         {/* <h4>Number of Work Items: {localStorage.getItem("workItems")}</h4> */}
-                        <h4>Number of Work Items: {this.state.items.length}</h4>
+                        {/* <h4>Number of Work Items: {this.state.items.length}</h4> */}
                     </Col>
                     <Col md={2}></Col>
                 </Row>
