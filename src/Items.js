@@ -17,7 +17,7 @@ export default class Items extends Component {
     }
     
     componentDidMount() {
-        const items = localStorage.getItem("items");
+        const items = (localStorage.getItem("items")!==null) ? localStorage.getItem("items") : JSON.stringify([]);
         this.setState({ items: JSON.parse(items) });
     }
 
@@ -103,7 +103,7 @@ export default class Items extends Component {
                     <Col md={3}></Col>
                     <Col md={3}>
                         {/* <h4>Number of Work Items: {localStorage.getItem("workItems")}</h4> */}
-                        {/* <h4>Number of Work Items: {this.state.items.length}</h4> */}
+                        <h4>Number of Work Items: {this.state.items.length}</h4>
                     </Col>
                     <Col md={2}></Col>
                 </Row>
